@@ -786,25 +786,6 @@ headers:{
 }
 }
 )
-.then(response=>{
-
-if(response.ok){
-
-console.log("发送成功");
-
-}else{
-
-console.log("发送失败");
-
-}
-
-})
-.catch(error=>{
-
-console.log(error);
-
-});
-
 .then(()=>{
 
 
