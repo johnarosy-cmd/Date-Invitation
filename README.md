@@ -1,5 +1,4 @@
 # Date-Invitation
-约会邀请
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
