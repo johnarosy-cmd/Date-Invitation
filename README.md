@@ -1,12 +1,14 @@
 # Date-Invitation
 <约会邀请>
+<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>约会邀请</title>
+<title>约会选择器</title>
 
 <style>
 
@@ -21,108 +23,83 @@ font-family:"Microsoft YaHei",sans-serif;
 body{
 
 min-height:100vh;
-background:linear-gradient(135deg,#ffe5ec,#fff5f7);
+background:linear-gradient(135deg,#ffe0e8,#fff7f8);
 display:flex;
 justify-content:center;
 align-items:center;
-overflow:hidden;
 
 }
 
 
 
-.container{
+.box{
 
 width:92%;
 max-width:420px;
 background:white;
+border-radius:30px;
 padding:30px;
-border-radius:28px;
 box-shadow:0 15px 40px rgba(0,0,0,.12);
+text-align:center;
 
 }
+
 
 
 
 h1{
 
-text-align:center;
 color:#ff4d6d;
-margin-bottom:25px;
-
-}
-
-
-
-.title{
-
-font-size:16px;
-color:#555;
-margin:18px 0 10px;
+font-size:27px;
+margin-bottom:20px;
 
 }
 
 
 
 
-input{
+p{
+
+color:#777;
+line-height:1.8;
+
+}
+
+
+
+
+
+.page{
+
+display:none;
+
+}
+
+
+.page.active{
+
+display:block;
+
+}
+
+
+
+
+
+.start-btn,
+.submit-btn{
+
 
 width:100%;
-padding:12px;
-border-radius:15px;
-border:1px solid #ddd;
-font-size:16px;
-
-}
-
-
-
-
-.options{
-
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-
-}
-
-
-
-
-.option{
-
-padding:10px 15px;
-background:#fff0f3;
-border-radius:20px;
-color:#666;
-cursor:pointer;
-transition:.3s;
-
-}
-
-
-
-.option.active{
-
-background:#ff4d6d;
-color:white;
-transform:scale(1.05);
-
-}
-
-
-
-
-
-#create{
-
-width:100%;
-margin-top:30px;
 padding:15px;
+margin-top:30px;
+
 border:none;
 border-radius:30px;
+
 background:#ff4d6d;
 color:white;
+
 font-size:18px;
 
 }
@@ -131,10 +108,78 @@ font-size:18px;
 
 
 
-.invitation{
+.title{
 
-display:none;
-text-align:center;
+font-size:18px;
+margin:20px 0 15px;
+color:#555;
+
+}
+
+
+
+
+
+input[type=date]{
+
+
+width:100%;
+padding:12px;
+
+border-radius:15px;
+
+border:1px solid #ddd;
+
+font-size:16px;
+
+}
+
+
+
+
+
+.options{
+
+
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+
+}
+
+
+
+
+
+.option{
+
+
+padding:12px 16px;
+
+background:#fff0f3;
+
+border-radius:20px;
+
+color:#666;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+
+
+
+.option.active{
+
+
+background:#ff4d6d;
+
+color:white;
+
+transform:scale(1.05);
 
 }
 
@@ -144,12 +189,19 @@ text-align:center;
 
 .card{
 
+
 background:#fff5f7;
+
 padding:22px;
+
 border-radius:20px;
-line-height:2;
+
 text-align:left;
-margin:20px 0;
+
+line-height:2;
+
+margin-top:20px;
+
 
 }
 
@@ -159,19 +211,11 @@ margin:20px 0;
 
 .card span{
 
+
 color:#ff4d6d;
+
 font-weight:bold;
 
-}
-
-
-
-
-
-.message{
-
-color:#666;
-line-height:1.8;
 
 }
 
@@ -179,49 +223,13 @@ line-height:1.8;
 
 
 
-.btn{
+.back-text{
 
-border:none;
-padding:13px 30px;
-border-radius:30px;
-font-size:17px;
-margin:10px;
-cursor:pointer;
-
-}
-
-
-
-
-#yes{
-
-background:#ff4d6d;
-color:white;
-
-}
-
-
-
-
-
-#no{
-
-background:#eee;
-color:#777;
-position:absolute;
-
-}
-
-
-
-
-
-.success{
-
-display:none;
-color:#ff4d6d;
-font-size:22px;
 margin-top:20px;
+
+color:#999;
+
+font-size:14px;
 
 }
 
@@ -232,19 +240,20 @@ margin-top:20px;
 .heart{
 
 position:fixed;
+
 animation:fall 5s linear forwards;
 
 }
 
 
 
-
-
 @keyframes fall{
+
 
 from{
 
 transform:translateY(-50px);
+
 opacity:1;
 
 }
@@ -253,11 +262,30 @@ opacity:1;
 to{
 
 transform:translateY(100vh);
+
 opacity:0;
 
 }
 
+
 }
+
+
+
+.success{
+
+
+display:none;
+
+color:#ff4d6d;
+
+font-size:22px;
+
+margin-top:20px;
+
+}
+
+
 
 
 </style>
@@ -270,33 +298,89 @@ opacity:0;
 
 
 
-<div class="container">
+<div class="box">
 
 
-<div id="selectPage">
+
+<!-- 第一页 -->
+
+<div class="page active" id="page1">
 
 
 <h1>
-💌 制作约会邀请
+💌 有一个小邀请给你
 </h1>
 
 
+<p>
 
-<div class="title">
-📅 选择日期
+这一次<br>
+
+想把约会的选择权交给你 ❤️
+
+<br><br>
+
+希望我们可以一起<br>
+
+度过一段开心的时间
+
+</p>
+
+
+
+<button class="start-btn" onclick="nextPage(2)">
+
+开始选择 ❤️
+
+</button>
+
+
 </div>
+
+
+
+
+
+<!-- 第二页 日期 -->
+
+
+<div class="page" id="page2">
+
+
+<h1>
+📅 选择日期
+</h1>
 
 
 <input type="date" id="date">
 
 
+<button class="start-btn" onclick="nextPage(3)">
 
-<div class="title">
-⏰ 选择时间
+下一步
+
+</button>
+
+
 </div>
 
 
-<div class="options" id="timeBox">
+
+
+
+<!-- 第三页 时间 -->
+
+
+<div class="page" id="page3">
+
+
+<h1>
+⏰ 选择时间
+</h1>
+
+
+<div class="options" id="time">
+
 
 <div class="option">14:00</div>
 <div class="option">15:00</div>
@@ -306,61 +390,120 @@ opacity:0;
 <div class="option">20:00</div>
 <div class="option">21:00</div>
 
-</div>
-
-
-
-<div class="title">
-📍 选择地点
-</div>
-
-
-<div class="options" id="placeBox">
-
-<div class="option">🍲 火锅店</div>
-<div class="option">🥩 西餐厅</div>
-<div class="option">🍣 日料店</div>
-<div class="option">☕ 咖啡厅</div>
-<div class="option">🎬 电影院</div>
-<div class="option">🌊 江边散步</div>
-<div class="option">🌳 公园</div>
-<div class="option">🛍 商场</div>
 
 </div>
 
 
 
-<div class="title">
-💕 约会内容
-</div>
+<button class="start-btn" onclick="nextPage(4)">
 
+下一步
 
-<div class="options" id="contentBox">
-
-<div class="option">一起吃饭聊天</div>
-<div class="option">看电影</div>
-<div class="option">散步吹风</div>
-<div class="option">喝咖啡</div>
-<div class="option">看夜景</div>
-<div class="option">逛街</div>
-<div class="option">拍照打卡</div>
-
-</div>
-
-
-
-<button id="create">
-生成邀请 ❤️
 </button>
 
 
-</div><!-- 邀请展示页面 -->
+</div><!-- 第四页 地点 -->
 
-<div id="invitePage" class="invitation">
+<div class="page" id="page4">
+
+<h1>
+📍 选择地点
+</h1>
+
+
+<div class="options" id="place">
+
+
+<div class="option">🍲 火锅店</div>
+
+<div class="option">🥩 西餐厅</div>
+
+<div class="option">🍣 日料店</div>
+
+<div class="option">☕ 咖啡厅</div>
+
+<div class="option">🎬 电影院</div>
+
+<div class="option">🌊 江边散步</div>
+
+<div class="option">🌳 公园</div>
+
+<div class="option">🛍 商场</div>
+
+
+</div>
+
+
+
+<button class="start-btn" onclick="nextPage(5)">
+
+下一步
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- 第五页 内容 -->
+
+
+<div class="page" id="page5">
 
 
 <h1>
-💌 给你的一份邀请
+💕 想怎么度过
+</h1>
+
+
+<div class="options" id="content">
+
+
+<div class="option">一起吃饭聊天</div>
+
+<div class="option">看电影</div>
+
+<div class="option">散步吹风</div>
+
+<div class="option">喝咖啡</div>
+
+<div class="option">看夜景</div>
+
+<div class="option">逛街</div>
+
+<div class="option">拍照打卡</div>
+
+
+</div>
+
+
+
+<button class="submit-btn" onclick="submitForm()">
+
+发送给他 ❤️
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- 第六页结果 -->
+
+
+<div class="page" id="page6">
+
+
+<h1>
+🎉 收到你的约会计划
 </h1>
 
 
@@ -368,74 +511,68 @@ opacity:0;
 <div class="card">
 
 
-📅 时间：
+📅 日期：
+
 <br>
 
-<span id="showDate"></span>
+<span id="resultDate"></span>
 
+
+<br><br>
+
+
+⏰ 时间：
+
+<br>
+
+<span id="resultTime"></span>
 
 
 <br><br>
 
 
 📍 地点：
+
 <br>
 
-<span id="showPlace"></span>
-
+<span id="resultPlace"></span>
 
 
 <br><br>
 
 
-💕 计划：
+💕 安排：
+
 <br>
 
-<span id="showContent"></span>
-
+<span id="resultContent"></span>
 
 
 </div>
 
 
 
+<p>
 
-<div class="message">
+期待与你见面 ❤️
 
-希望这一天<br>
-可以成为一个开心的回忆 ❤️
-
-</div>
-
-
-
-
-<button class="btn" id="yes">
-
-接受 ❤️
-
-</button>
-
-
-
-<button class="btn" id="no">
-
-拒绝 😢
-
-</button>
+</p>
 
 
 
 <div class="success" id="success">
 
-🎉 邀请成功！<br>
-期待与你见面～
+
+你的选择已经发送给他啦～
 
 </div>
 
 
 
 </div>
+
+
+
 
 
 
@@ -448,28 +585,55 @@ opacity:0;
 <script>
 
 
-// =====================
-// 选项点击
-// =====================
+
+// 页面切换
 
 
-function choose(boxId){
+function nextPage(num){
 
 
-let box=document.getElementById(boxId);
+document.querySelectorAll(".page")
+.forEach(p=>{
 
-let items=box.querySelectorAll(".option");
+p.classList.remove("active");
+
+});
 
 
-items.forEach(item=>{
+document.getElementById("page"+num)
+.classList.add("active");
+
+
+}
+
+
+
+
+
+
+
+// 选项选择
+
+
+function choose(id){
+
+
+let box=document.getElementById(id);
+
+
+let options=box.querySelectorAll(".option");
+
+
+
+options.forEach(item=>{
 
 
 item.onclick=function(){
 
 
-items.forEach(i=>{
+options.forEach(o=>{
 
-i.classList.remove("active");
+o.classList.remove("active");
 
 });
 
@@ -487,44 +651,44 @@ this.classList.add("active");
 
 
 
-choose("timeBox");
+choose("time");
 
-choose("placeBox");
+choose("place");
 
-choose("contentBox");
-
-
+choose("content");
 
 
 
-// =====================
-// 生成邀请
-// =====================
 
 
-document.getElementById("create").onclick=function(){
+
+
+
+
+// 提交
+
+
+function submitForm(){
 
 
 
 let date=document.getElementById("date").value;
 
 
-let time=document.querySelector("#timeBox .active");
+let time=document.querySelector("#time .active");
 
 
-let place=document.querySelector("#placeBox .active");
+let place=document.querySelector("#place .active");
 
 
-let content=document.querySelector("#contentBox .active");
-
-
+let content=document.querySelector("#content .active");
 
 
 
 if(!date || !time || !place || !content){
 
 
-alert("请把约会信息选择完整哦 ❤️");
+alert("请完成所有选择 ❤️");
 
 return;
 
@@ -534,104 +698,136 @@ return;
 
 
 
-let dateText=date.split("-")[0]+"年"+
-date.split("-")[1]+"月"+
-date.split("-")[2]+"日";
+
+// 显示结果
+
+
+document.getElementById("resultDate").innerHTML=date;
+
+
+document.getElementById("resultTime").innerHTML=time.innerHTML;
+
+
+document.getElementById("resultPlace").innerHTML=place.innerHTML;
+
+
+document.getElementById("resultContent").innerHTML=content.innerHTML;
 
 
 
-
-document.getElementById("showDate").innerHTML=
-
-dateText+" "+time.innerHTML;
-
-
-
-
-document.getElementById("showPlace").innerHTML=
-
-place.innerHTML;
-
-
-
-
-document.getElementById("showContent").innerHTML=
-
-content.innerHTML;
-
-
-
-
-
-document.getElementById("selectPage").style.display="none";
-
-
-document.getElementById("invitePage").style.display="block";
-
-
-
-}
-
-
-
-
-
-
-// =====================
-// 拒绝按钮逃跑
-// =====================
-
-
-let no=document.getElementById("no");
-
-
-
-function runAway(){
-
-
-let x=Math.random()*260;
-
-let y=Math.random()*450;
-
-
-
-no.style.left=x+"px";
-
-no.style.top=y+"px";
-
-
-}
-
-
-
-no.onmouseenter=runAway;
-
-
-no.onclick=runAway;
-
-
-
-
-
-
-// =====================
-// 接受按钮
-// =====================
-
-
-document.getElementById("yes").onclick=function(){
+nextPage(6);
 
 
 
 document.getElementById("success").style.display="block";
 
 
-this.innerHTML="已经约好了 ❤️";
 
 
-no.style.display="none";
+
+function submitForm(){
 
 
+let date=document.getElementById("date").value;
+
+let time=document.querySelector("#time .active");
+
+let place=document.querySelector("#place .active");
+
+let content=document.querySelector("#content .active");
+
+
+if(!date || !time || !place || !content){
+
+alert("请完成所有选择 ❤️");
+
+return;
+
+}
+
+
+
+let formData=new FormData();
+
+
+formData.append(
+"日期",
+date
+);
+
+
+formData.append(
+"时间",
+time.innerHTML
+);
+
+
+formData.append(
+"地点",
+place.innerHTML
+);
+
+
+formData.append(
+"约会内容",
+content.innerHTML
+);
+
+
+
+
+
+fetch(
+"https://formspree.io/f/mojgvkny",
+{
+
+method:"POST",
+
+body:formData,
+
+headers:{
+
+"Accept":"application/json"
+
+}
+
+}
+
+)
+
+.then(()=>{
+
+
+document.getElementById("resultDate").innerHTML=date;
+
+
+document.getElementById("resultTime").innerHTML=time.innerHTML;
+
+
+document.getElementById("resultPlace").innerHTML=place.innerHTML;
+
+
+document.getElementById("resultContent").innerHTML=content.innerHTML;
+
+
+
+nextPage(6);
+
+
+
+})
+
+.catch(()=>{
+
+
+alert("发送失败，请稍后再试");
+
+
+});
+
+
+
+}
 
 }
 
@@ -641,19 +837,17 @@ no.style.display="none";
 
 
 
-// =====================
-// 飘落爱心
-// =====================
+
+// 爱心动画
 
 
-setInterval(function(){
+setInterval(()=>{
 
 
 let heart=document.createElement("div");
 
 
 heart.className="heart";
-
 
 heart.innerHTML="❤️";
 
@@ -662,8 +856,7 @@ heart.style.left=Math.random()*100+"vw";
 
 
 heart.style.fontSize=
-(15+Math.random()*25)+"px";
-
+(15+Math.random()*20)+"px";
 
 
 document.body.appendChild(heart);
@@ -672,9 +865,7 @@ document.body.appendChild(heart);
 
 setTimeout(()=>{
 
-
 heart.remove();
-
 
 },5000);
 
