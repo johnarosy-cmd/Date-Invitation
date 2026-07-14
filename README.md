@@ -1,71 +1,101 @@
 # Date-Invitation
+约会邀请
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>约会邀请</title>
+<title>约会邀请生成器</title>
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Microsoft YaHei";
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Microsoft YaHei";
 }
 
 body{
-    height:100vh;
-    background:linear-gradient(135deg,#ffafbd,#ffc3a0);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
+height:100vh;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
 }
 
 
-.card{
-
-    width:90%;
-    max-width:400px;
-    background:white;
-    padding:35px 25px;
-    border-radius:25px;
-    text-align:center;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
-
+.box{
+width:90%;
+max-width:420px;
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 10px 30px #9995;
+text-align:center;
 }
 
 
 h1{
-
 color:#ff4d6d;
 margin-bottom:20px;
+}
+
+
+input,textarea{
+
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:15px;
 
 }
 
 
-.info{
-
-background:#fff5f7;
-padding:20px;
-border-radius:15px;
-text-align:left;
-line-height:2;
-margin-bottom:25px;
-
+textarea{
+height:80px;
+resize:none;
 }
 
 
 button{
 
-padding:12px 30px;
+padding:12px 25px;
 border:none;
 border-radius:30px;
-font-size:17px;
+font-size:16px;
+margin-top:15px;
 cursor:pointer;
+
+}
+
+
+#create{
+
+background:#ff4d6d;
+color:white;
+
+}
+
+
+.invite{
+
+display:none;
+
+}
+
+
+.card{
+
+background:#fff5f7;
+padding:20px;
+border-radius:15px;
+line-height:2;
+margin-top:20px;
 
 }
 
@@ -81,18 +111,17 @@ color:white;
 #no{
 
 background:#eee;
-color:#777;
 position:absolute;
 
 }
 
 
-#result{
+#success{
 
 display:none;
-margin-top:25px;
 color:#ff4d6d;
 font-size:20px;
+margin-top:20px;
 
 }
 
@@ -105,36 +134,58 @@ font-size:20px;
 <body>
 
 
-<div class="card">
+<div class="box">
 
 
-<h1>💌 约会邀请函</h1>
+<div id="edit">
+
+<h1>💌 制作约会邀请</h1>
 
 
-<div class="info">
+<input id="time" placeholder="输入时间，例如：周六晚上7点">
 
-📅 时间：
-<span id="time"></span>
-<br>
 
-📍 地点：
-<span id="place"></span>
+<input id="place" placeholder="输入地点，例如：XX餐厅">
 
-<br>
 
-💕 计划：
-<span id="plan"></span>
+<textarea id="content" placeholder="输入约会内容，例如：吃饭、看电影、散步"></textarea>
+
+
+<button id="create">
+生成邀请 ❤️
+</button>
+
 
 </div>
 
 
-<p>
-希望这一天<br>
-可以和你一起留下一个开心的回忆
+
+<div id="invite">
+
+
+<h1>💌 给你的邀请</h1>
+
+
+<div class="card">
+
+📅 时间：
+<div id="showTime"></div>
+
+
+📍 地点：
+<div id="showPlace"></div>
+
+
+💕 计划：
+<div id="showContent"></div>
+
+
+</div>
+
+
+<p style="margin-top:20px">
+希望今天能成为一个开心的回忆
 </p>
-
-
-<br>
 
 
 <button id="yes">
@@ -147,7 +198,7 @@ font-size:20px;
 </button>
 
 
-<div id="result">
+<div id="success">
 
 🎉 邀请成功！<br>
 期待与你见面～
@@ -159,84 +210,72 @@ font-size:20px;
 
 
 
+</div>
+
+
+
 <script>
 
 
-// ====== 在这里修改你的约会内容 ======
-
-let dateTime="2026年7月20日 18:30";
-
-let place="XX餐厅";
-
-let plan="一起吃饭，看电影，散步聊天";
+let create=document.getElementById("create");
 
 
-// ==================================
+create.onclick=function(){
+
+
+document.getElementById("showTime").innerHTML=
+document.getElementById("time").value;
+
+
+document.getElementById("showPlace").innerHTML=
+document.getElementById("place").value;
+
+
+document.getElementById("showContent").innerHTML=
+document.getElementById("content").value;
 
 
 
-document.getElementById("time").innerHTML=dateTime;
+document.getElementById("edit").style.display="none";
 
-document.getElementById("place").innerHTML=place;
+document.getElementById("invite").style.display="block";
 
-document.getElementById("plan").innerHTML=plan;
 
+}
 
 
 
 let no=document.getElementById("no");
 
 
-// 鼠标靠近逃跑
-
-no.onmouseenter=function(){
-
-moveNo();
-
-}
-
-
-// 点击逃跑
-
-no.onclick=function(){
-
-moveNo();
-
-}
-
-
-
-function moveNo(){
+function escape(){
 
 let x=Math.random()*250;
 
 let y=Math.random()*400;
 
-
 no.style.left=x+"px";
 
 no.style.top=y+"px";
 
-
 }
 
+
+no.onmouseenter=escape;
+
+no.onclick=escape;
 
 
 
 document.getElementById("yes").onclick=function(){
 
-
-document.getElementById("result").style.display="block";
-
+document.getElementById("success").style.display="block";
 
 no.style.display="none";
 
-
 this.innerHTML="已经约好了 ❤️";
 
-
 }
-
 
 
 
@@ -244,5 +283,4 @@ this.innerHTML="已经约好了 ❤️";
 
 
 </body>
-
 </html>
