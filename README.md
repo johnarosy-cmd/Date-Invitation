@@ -1,6 +1,5 @@
 # Date-Invitation
-<约会邀请>
-<!DOCTYPE html>
+<来自牛牛的约会邀请>
 <html lang="zh-CN">
 
 <head>
